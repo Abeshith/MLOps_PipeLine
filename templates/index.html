@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Marketing Prediction | MLOps Pipeline</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><i class="fas fa-chart-line"></i>Bank Marketing ML Predictor</h1>
+            <div class="nav-links">
+                <a href="/" class="nav-link active"><i class="fas fa-home"></i> Prediction</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Predict Term Deposit Subscription</h1>
+                <p>Use our machine learning model to predict whether a customer will subscribe to a term deposit based on their profile and interaction history.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="prediction-wrapper">
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-user-tie"></i> Customer Information</h2>
+                            <p>Enter customer details to predict subscription likelihood</p>
+                        </div>
+                        
+                        <form id="predictionForm" class="prediction-form">
+                            <!-- Personal Information -->
+                            <div class="form-section">
+                                <h3><i class="fas fa-user"></i> Personal Details</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+                                        <input type="number" name="age" id="age" required min="18" max="100" placeholder="e.g., 35">
+                                        <span class="input-helper">Age of the customer</span>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="job"><i class="fas fa-briefcase"></i> Job</label>
+                                        <select name="job" id="job" required>
+                                            <option value="">Select job category</option>
+                                            <option value="admin.">Administrative</option>
+                                            <option value="blue-collar">Blue-collar</option>
+                                            <option value="entrepreneur">Entrepreneur</option>
+                                            <option value="housemaid">Housemaid</option>
+                                            <option value="management">Management</option>
+                                            <option value="retired">Retired</option>
+                                            <option value="self-employed">Self-employed</option>
+                                            <option value="services">Services</option>
+                                            <option value="student">Student</option>
+                                            <option value="technician">Technician</option>
+                                            <option value="unemployed">Unemployed</option>
+                                            <option value="unknown">Unknown</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="marital"><i class="fas fa-heart"></i> Marital Status</label>
+                                        <select name="marital" id="marital" required>
+                                            <option value="">Select marital status</option>
+                                            <option value="divorced">Divorced</option>
+                                            <option value="married">Married</option>
+                                            <option value="single">Single</option>
+                                            <option value="unknown">Unknown</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="education"><i class="fas fa-graduation-cap"></i> Education</label>
+                                        <select name="education" id="education" required>
+                                            <option value="">Select education level</option>
+                                            <option value="basic.4y">Basic 4y</option>
+                                            <option value="basic.6y">Basic 6y</option>
+                                            <option value="basic.9y">Basic 9y</option>
+                                            <option value="high.school">High School</option>
+                                            <option value="illiterate">Illiterate</option>
+                                            <option value="professional.course">Professional Course</option>
+                                            <option value="university.degree">University Degree</option>
+                                            <option value="unknown">Unknown</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Financial Information -->
+                            <div class="form-section">
+                                <h3><i class="fas fa-dollar-sign"></i> Financial Information</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="balance"><i class="fas fa-piggy-bank"></i> Account Balance</label>
+                                        <input type="number" name="balance" id="balance" placeholder="e.g., 1500">
+                                        <span class="input-helper">Average yearly balance in euros</span>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="housing"><i class="fas fa-home"></i> Housing Loan</label>
+                                        <select name="housing" id="housing" required>
+                                            <option value="">Has housing loan?</option>
+                                            <option value="no">No</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="unknown">Unknown</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="loan"><i class="fas fa-credit-card"></i> Personal Loan</label>
+                                        <select name="loan" id="loan" required>
+                                            <option value="">Has personal loan?</option>
+                                            <option value="no">No</option>
+                                            <option value="yes">Yes</option>
+                                            <option value="unknown">Unknown</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="form-section">
+                                <h3><i class="fas fa-phone"></i> Contact Details</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="duration"><i class="fas fa-clock"></i> Last Contact Duration</label>
+                                        <input type="number" name="duration" id="duration" required min="0" placeholder="e.g., 300">
+                                        <span class="input-helper">Duration in seconds</span>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="campaign"><i class="fas fa-phone-volume"></i> Campaign Contacts</label>
+                                        <input type="number" name="campaign" id="campaign" required min="1" placeholder="e.g., 2">
+                                        <span class="input-helper">Number of contacts during campaign</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-predict" id="predictBtn">
+                                    <i class="fas fa-magic"></i>
+                                    <span>Predict Subscription</span>
+                                    <div class="loading-spinner" style="display: none;"></div>
+                                </button>
+                                <button type="reset" class="btn-reset">
+                                    <i class="fas fa-redo"></i> Reset Form
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-container">
+                    <div class="card" id="resultCard" style="display: none;">
+                        <div class="card-header">
+                            <h2><i class="fas fa-chart-bar"></i> Prediction Results</h2>
+                        </div>
+                        <div id="predictionResult"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>MLOps Pipeline</h4>
+                    <p>End-to-end machine learning pipeline for bank marketing prediction</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>Real-time predictions</li>
+                        <li>Model monitoring</li>
+                        <li>Data validation</li>
+                        <li>Performance tracking</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Technology</h4>
+                    <ul>
+                        <li>Scikit-learn</li>
+                        <li>Flask</li>
+                        <li>MLflow</li>
+                        <li>Prometheus</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MLOps Pipeline. Built with ❤️ for machine learning excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

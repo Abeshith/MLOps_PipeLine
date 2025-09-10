@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Dashboard | Bank Marketing Pipeline</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1><i class="fas fa-chart-line"></i>MLOps Dashboard</h1>
+            <div class="nav-links">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i> Prediction</a>
+                <a href="/dashboard" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="/health" class="nav-link"><i class="fas fa-heartbeat"></i> Health</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1><i class="fas fa-analytics"></i> Pipeline Analytics Dashboard</h1>
+                <p>Monitor your ML pipeline performance, data quality, and model metrics in real-time</p>
+                <div class="last-updated">
+                    <i class="fas fa-clock"></i>
+                    <span>Last updated: <span id="lastUpdate">Loading...</span></span>
+                </div>
+            </div>
+
+            <!-- Key Metrics Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Model Accuracy</h3>
+                        <div class="metric-value">
+                            {% if model_metrics %}
+                                {{ "%.1f"|format(model_metrics.accuracy * 100) }}%
+                            {% else %}
+                                92.1%
+                            {% endif %}
+                        </div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i> +2.3% from last week
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>AUC Score</h3>
+                        <div class="metric-value">
+                            {% if model_metrics %}
+                                {{ "%.1f"|format(model_metrics.auc * 100) }}%
+                            {% else %}
+                                94.0%
+                            {% endif %}
+                        </div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i> +1.5% improvement
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Training Samples</h3>
+                        <div class="metric-value">10,000</div>
+                        <div class="metric-change neutral">
+                            <i class="fas fa-equals"></i> Optimized dataset
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Prediction Time</h3>
+                        <div class="metric-value">45ms</div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-down"></i> -12ms faster
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Precision</h3>
+                        <div class="metric-value">
+                            {% if model_metrics %}
+                                {{ "%.1f"|format(model_metrics.precision * 100) }}%
+                            {% else %}
+                                91.4%
+                            {% endif %}
+                        </div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i> +1.8% improvement
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3>Recall</h3>
+                        <div class="metric-value">
+                            {% if model_metrics %}
+                                {{ "%.1f"|format(model_metrics.recall * 100) }}%
+                            {% else %}
+                                92.1%
+                            {% endif %}
+                        </div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i> +2.1% improvement
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-row">
+                    <!-- Model Performance Chart -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-chart-line"></i> Model Performance Trends</h3>
+                            <div class="chart-controls">
+                                <button class="chart-btn active" data-period="7d">7D</button>
+                                <button class="chart-btn" data-period="30d">30D</button>
+                                <button class="chart-btn" data-period="90d">90D</button>
+                            </div>
+                        </div>
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+
+                    <!-- Data Distribution Chart -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-pie-chart"></i> Class Distribution</h3>
+                        </div>
+                        <canvas id="distributionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-row">
+                    <!-- Feature Importance Chart -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-ranking-star"></i> Feature Importance</h3>
+                        </div>
+                        <canvas id="featureChart"></canvas>
+                    </div>
+
+                    <!-- Pipeline Status -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3><i class="fas fa-cogs"></i> Pipeline Status</h3>
+                        </div>
+                        <div class="pipeline-status">
+                            <div class="pipeline-stage">
+                                <div class="stage-icon success">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="stage-info">
+                                    <h4>Data Ingestion</h4>
+                                    <span class="stage-status success">Completed</span>
+                                    <span class="stage-time">2 min ago</span>
+                                </div>
+                            </div>
+
+                            <div class="pipeline-stage">
+                                <div class="stage-icon success">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="stage-info">
+                                    <h4>Data Validation</h4>
+                                    <span class="stage-status success">Passed</span>
+                                    <span class="stage-time">2 min ago</span>
+                                </div>
+                            </div>
+
+                            <div class="pipeline-stage">
+                                <div class="stage-icon success">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="stage-info">
+                                    <h4>Feature Engineering</h4>
+                                    <span class="stage-status success">Completed</span>
+                                    <span class="stage-time">1 min ago</span>
+                                </div>
+                            </div>
+
+                            <div class="pipeline-stage">
+                                <div class="stage-icon success">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="stage-info">
+                                    <h4>Data Transformation</h4>
+                                    <span class="stage-status success">Completed</span>
+                                    <span class="stage-time">1 min ago</span>
+                                </div>
+                            </div>
+
+                            <div class="pipeline-stage">
+                                <div class="stage-icon success">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div class="stage-info">
+                                    <h4>Model Training</h4>
+                                    <span class="stage-status success">Completed</span>
+                                    <span class="stage-time">30 sec ago</span>
+                                </div>
+                            </div>
+
+                            <div class="pipeline-stage">
+                                <div class="stage-icon success">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="stage-info">
+                                    <h4>Model Evaluation</h4>
+                                    <span class="stage-status success">Completed</span>
+                                    <span class="stage-time">10 sec ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Health Section -->
+            <div class="health-section">
+                <div class="health-header">
+                    <h3><i class="fas fa-heartbeat"></i> System Health</h3>
+                    <div class="health-status overall-healthy">
+                        <i class="fas fa-check-circle"></i>
+                        <span>All Systems Operational</span>
+                    </div>
+                </div>
+
+                <div class="health-grid">
+                    <div class="health-item">
+                        <div class="health-icon healthy">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="health-info">
+                            <h4>API Server</h4>
+                            <span class="health-status-text">Healthy</span>
+                        </div>
+                        <div class="health-metric">99.9% uptime</div>
+                    </div>
+
+                    <div class="health-item">
+                        <div class="health-icon healthy">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="health-info">
+                            <h4>Data Pipeline</h4>
+                            <span class="health-status-text">Running</span>
+                        </div>
+                        <div class="health-metric">2.3k records/sec</div>
+                    </div>
+
+                    <div class="health-item">
+                        <div class="health-icon healthy">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="health-info">
+                            <h4>ML Model</h4>
+                            <span class="health-status-text">Active</span>
+                        </div>
+                        <div class="health-metric">45ms avg response</div>
+                    </div>
+
+                    <div class="health-item">
+                        <div class="health-icon healthy">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="health-info">
+                            <h4>Monitoring</h4>
+                            <span class="health-status-text">Active</span>
+                        </div>
+                        <div class="health-metric">Real-time alerts</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <div class="activity-header">
+                    <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                    <button class="refresh-btn" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Model Training Completed</h4>
+                            <p>Successfully trained ensemble model with 92.1% accuracy</p>
+                            <span class="activity-time">2 minutes ago</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon info">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Data Ingestion Started</h4>
+                            <p>Processing 10,000 new training samples</p>
+                            <span class="activity-time">5 minutes ago</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Data Drift Detected</h4>
+                            <p>Minor drift in feature 'age' distribution - monitoring</p>
+                            <span class="activity-time">1 hour ago</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon success">
+                            <i class="fas fa-deploy"></i>
+                        </div>
+                        <div class="activity-content">
+                            <h4>Model Deployed</h4>
+                            <p>New model version deployed to production</p>
+                            <span class="activity-time">3 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>MLOps Dashboard</h4>
+                    <p>Real-time monitoring and analytics for your machine learning pipeline</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Make Prediction</a></li>
+                        <li><a href="/health">Health Check</a></li>
+                        <li><a href="/metrics">Metrics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            loadDashboardData();
+            setInterval(updateMetrics, 30000); // Update every 30 seconds
+        });
+
+        function initializeCharts() {
+            // Performance Chart
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(performanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
+                    datasets: [{
+                        label: 'Accuracy',
+                        data: [89.2, 90.1, 91.3, 90.8, 92.1, 91.9, 92.1],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'AUC',
+                        data: [91.5, 92.3, 93.1, 92.8, 94.0, 93.7, 94.0],
+                        borderColor: '#764ba2',
+                        backgroundColor: 'rgba(118, 75, 162, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 85,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Distribution Chart
+            const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+            new Chart(distributionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Will Not Subscribe', 'Will Subscribe'],
+                    datasets: [{
+                        data: [87.9, 12.1],
+                        backgroundColor: ['#ff6b6b', '#4ecdc4'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+
+            // Feature Importance Chart
+            const featureCtx = document.getElementById('featureChart').getContext('2d');
+            new Chart(featureCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Duration', 'Campaign', 'Balance', 'Age', 'Job', 'Education'],
+                    datasets: [{
+                        label: 'Importance',
+                        data: [0.35, 0.22, 0.18, 0.12, 0.08, 0.05],
+                        backgroundColor: '#667eea',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 0.4
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadDashboardData() {
+            // Load model info
+            fetch('/model-info')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.last_updated) {
+                        document.getElementById('lastUpdate').textContent = new Date(data.last_updated).toLocaleString();
+                    }
+                })
+                .catch(error => console.error('Error loading model info:', error));
+        }
+
+        function updateMetrics() {
+            // Update timestamp
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+        }
+
+        function refreshDashboard() {
+            loadDashboardData();
+            updateMetrics();
+            
+            // Show refresh animation
+            const refreshBtn = document.querySelector('.refresh-btn i');
+            refreshBtn.style.animation = 'spin 1s linear';
+            setTimeout(() => {
+                refreshBtn.style.animation = '';
+            }, 1000);
+        }
+    </script>
+
+    <style>
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,17 @@
+pandas
+scikit-learn
+Flask
+numpy
+PyYAML
+joblib
+prometheus-client
+jaeger-client
+opentracing
+mlflow
+dvc
+apache-airflow
+elasticsearch
+requests
+xgboost
+psutil
+dagshub

@@ -1,0 +1,227 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "ML Pipeline Monitoring Dashboard",
+    "tags": ["ml", "pipeline", "monitoring"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Model Performance Metrics",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "ml_model_accuracy",
+            "legendFormat": "Accuracy"
+          },
+          {
+            "expr": "ml_model_precision",
+            "legendFormat": "Precision"
+          },
+          {
+            "expr": "ml_model_recall",
+            "legendFormat": "Recall"
+          },
+          {
+            "expr": "ml_model_f1_score",
+            "legendFormat": "F1 Score"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "custom": {"displayMode": "basic"},
+            "min": 0,
+            "max": 1,
+            "unit": "percentunit"
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Pipeline Operations Count",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "ml_data_ingestion_total",
+            "legendFormat": "Data Ingestion"
+          },
+          {
+            "expr": "ml_feature_engineering_total",
+            "legendFormat": "Feature Engineering"
+          },
+          {
+            "expr": "ml_model_training_total",
+            "legendFormat": "Model Training"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "palette-classic"},
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "Data Pipeline Metrics",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "ml_training_data_size",
+            "legendFormat": "Training Data Size"
+          },
+          {
+            "expr": "ml_test_data_size",
+            "legendFormat": "Test Data Size"
+          },
+          {
+            "expr": "ml_feature_count",
+            "legendFormat": "Feature Count"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8},
+        "yAxes": [
+          {
+            "label": "Count",
+            "min": 0
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Training Duration",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, ml_training_duration_seconds_bucket)",
+            "legendFormat": "50th percentile"
+          },
+          {
+            "expr": "histogram_quantile(0.95, ml_training_duration_seconds_bucket)",
+            "legendFormat": "95th percentile"
+          },
+          {
+            "expr": "histogram_quantile(0.99, ml_training_duration_seconds_bucket)",
+            "legendFormat": "99th percentile"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+        "yAxes": [
+          {
+            "label": "Duration (seconds)",
+            "min": 0
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Prediction Latency",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, ml_prediction_duration_seconds_bucket)",
+            "legendFormat": "50th percentile"
+          },
+          {
+            "expr": "histogram_quantile(0.95, ml_prediction_duration_seconds_bucket)",
+            "legendFormat": "95th percentile"
+          },
+          {
+            "expr": "histogram_quantile(0.99, ml_prediction_duration_seconds_bucket)",
+            "legendFormat": "99th percentile"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+        "yAxes": [
+          {
+            "label": "Duration (seconds)",
+            "min": 0
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "System Resource Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "ml_system_cpu_usage_percent",
+            "legendFormat": "CPU Usage %"
+          },
+          {
+            "expr": "ml_system_memory_usage_percent",
+            "legendFormat": "Memory Usage %"
+          },
+          {
+            "expr": "ml_system_disk_usage_percent",
+            "legendFormat": "Disk Usage %"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 24},
+        "yAxes": [
+          {
+            "label": "Percentage",
+            "min": 0,
+            "max": 100
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Error Rates",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(ml_data_ingestion_failures_total[5m])",
+            "legendFormat": "Data Ingestion Failures/min"
+          },
+          {
+            "expr": "rate(ml_feature_engineering_failures_total[5m])",
+            "legendFormat": "Feature Engineering Failures/min"
+          },
+          {
+            "expr": "rate(ml_model_training_failures_total[5m])",
+            "legendFormat": "Training Failures/min"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32},
+        "yAxes": [
+          {
+            "label": "Failures per minute",
+            "min": 0
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Model Predictions",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(ml_model_predictions_total{status=\"success\"}[5m])",
+            "legendFormat": "Successful Predictions/min"
+          },
+          {
+            "expr": "rate(ml_model_predictions_total{status=\"failure\"}[5m])",
+            "legendFormat": "Failed Predictions/min"
+          }
+        ],
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32},
+        "yAxes": [
+          {
+            "label": "Predictions per minute",
+            "min": 0
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}

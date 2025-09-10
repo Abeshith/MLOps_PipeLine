@@ -1,0 +1,35 @@
+feature_engineering:
+  numeric_features: 
+    - "age"
+    - "balance"
+    - "day"
+    - "duration"
+    - "campaign"
+    - "pdays"
+    - "previous"
+  categorical_features:
+    - "job"
+    - "marital"
+    - "education"
+    - "default"
+    - "housing"
+    - "loan"
+    - "contact"
+    - "month"
+    - "poutcome"
+  target_column: "y"
+  encoding:
+    method: "onehot"
+    handle_unknown: "ignore"
+  scaling:
+    method: "standard"
+  feature_selection:
+    method: "mutual_info"
+    k_best: 15
+  transformations:
+    balance:
+      - "log"
+    duration:
+      - "log"
+    campaign:
+      - "log"
