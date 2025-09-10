@@ -7,7 +7,8 @@ Observability.md
 # DVC managed artifacts (all artifacts handled by DVC)
 artifacts/
 
-# Keep DVC files but not the actual data/models
+# Keep essential files for CI/CD
+!artifacts/model_evaluation/metrics.json
 !artifacts/.gitkeep
 
 # Log files
