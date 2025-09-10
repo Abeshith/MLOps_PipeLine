@@ -97,7 +97,7 @@ jobs:
         echo "version=$DATA_VERSION" >> $GITHUB_OUTPUT
         
     - name: Upload data artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: data-artifacts-${{ steps.version-data.outputs.version }}
         path: |
@@ -125,7 +125,7 @@ jobs:
         pip install -r requirements.txt
         
     - name: Download data artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: data-artifacts-${{ needs.data-ingestion.outputs.data-version }}
         path: artifacts/
@@ -145,7 +145,7 @@ jobs:
         "
         
     - name: Upload feature artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: feature-artifacts-${{ needs.data-ingestion.outputs.data-version }}
         path: |
@@ -178,13 +178,13 @@ jobs:
         pip install -r requirements.txt
         
     - name: Download artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: data-artifacts-${{ needs.data-ingestion.outputs.data-version }}
         path: artifacts/
         
     - name: Download feature artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: feature-artifacts-${{ needs.data-ingestion.outputs.data-version }}
         path: artifacts/
@@ -255,7 +255,7 @@ jobs:
         echo "version=$MODEL_VERSION" >> $GITHUB_OUTPUT
         
     - name: Upload model artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: model-artifacts-${{ steps.version-model.outputs.version }}
         path: |
@@ -276,7 +276,7 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Download model artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: model-artifacts-${{ needs.model-training.outputs.model-version }}
         path: artifacts/
