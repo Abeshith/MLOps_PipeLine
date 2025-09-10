@@ -3,3 +3,16 @@ Observability.md
 .venv/
 uv.lock
 .__pycache__
+
+
+# DVC managed artifacts
+artifacts/
+artifacts/data_ingestion/train_data/
+artifacts/data_ingestion/test_data/
+artifacts/data_transformation/
+artifacts/model_trainer/
+artifacts/model_evaluation/
+artifacts/feature_engineering/
+
+# Log files
+logs/
