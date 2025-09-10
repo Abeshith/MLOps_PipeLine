@@ -134,17 +134,12 @@ jobs:
             - name: Validate DVC pipeline
               run: |
                 # Check DVC pipeline syntax
-                dvc dag --ascii || echo "DVC pipeline validation skipped"
+                dvc dag || echo "DVC pipeline validation skipped"
                 
                 # Validate DVC stages
                 if [ -f "dvc.yaml" ]; then
                     echo "✓ dvc.yaml found"
-                    python -c "
-                    import yaml
-                    with open('dvc.yaml', 'r') as f:
-                        dvc_config = yaml.safe_load(f)
-                    print(f'✓ DVC pipeline has {len(dvc_config.get(\"stages\", {}))} stages')
-                    "
+                    python -c "import yaml; dvc_config = yaml.safe_load(open('dvc.yaml')); print(f'✓ DVC pipeline has {len(dvc_config.get(\"stages\", {}))} stages')"
                 else
                     echo "⚠ dvc.yaml not found"
                 fi
@@ -243,7 +238,7 @@ jobs:
                 head: HEAD
 
             - name: Upload security reports
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: security-reports
                 path: |
