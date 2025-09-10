@@ -1,0 +1,12 @@
+{
+    "validation_status": true,
+    "train_validation": {
+        "status": true,
+        "missing_columns": [],
+        "dtype_errors": []
+    },
+    "test_validation": {
+        "status": true,
+        "missing_columns": []
+    }
+}

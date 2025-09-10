@@ -1,18 +1,14 @@
 __pycache__/
 Observability.md
 .venv/
-uv.lock
 .__pycache__
 
 
-# DVC managed artifacts
+# DVC managed artifacts (all artifacts handled by DVC)
 artifacts/
-artifacts/data_ingestion/train_data/
-artifacts/data_ingestion/test_data/
-artifacts/data_transformation/
-artifacts/model_trainer/
-artifacts/model_evaluation/
-artifacts/feature_engineering/
+
+# Keep DVC files but not the actual data/models
+!artifacts/.gitkeep
 
 # Log files
 logs/
