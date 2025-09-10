@@ -1,0 +1,80 @@
+# Git
+.git
+.gitignore
+.github
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.venv
+.pytest_cache
+
+# Documentation
+*.md
+docs/
+README.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Observability (keep only necessary configs)
+observability/elasticsearch/data
+observability/grafana/data
+observability/prometheus/data
+observability/fluentd/buffer
+
+# Logs
+logs/*.log
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts (keep only necessary ones)
+build/
+dist/
+*.egg-info
+
+# Lock files (keep requirements.txt only)
+poetry.lock
+Pipfile.lock
+uv.lock
+
+# Large data files (if any)
+*.csv
+*.json
+*.pkl
+!artifacts/model_trainer/model.pkl
+!artifacts/data_transformation/preprocessor.pkl
+
+# Test files
+tests/
+*_test.py
+test_*.py

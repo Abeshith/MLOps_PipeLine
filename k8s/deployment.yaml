@@ -1,82 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ml-pipeline-app
+  name: my-mlapp
   labels:
-    app: ml-pipeline
-    version: "1.0"
-    component: api
+    app: my-mlapp
 spec:
   replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
   selector:
     matchLabels:
-      app: ml-pipeline
+      app: my-mlapp
   template:
     metadata:
       labels:
-        app: ml-pipeline
-        component: api
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8000"
-        prometheus.io/path: "/metrics"
+        app: my-mlapp
     spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 1000
       containers:
-      - name: ml-pipeline-app
-        image: IMAGE_TAG  # This will be replaced by CI/CD
-        imagePullPolicy: Always
+      - name: mlapp-container
+        image: abeshith/mlapp:latest
         ports:
-        - name: http
-          containerPort: 5000
-          protocol: TCP
-        - name: metrics
-          containerPort: 8000
-          protocol: TCP
-        env:
-        - name: FLASK_ENV
-          value: "production"
-        - name: PYTHONPATH
-          value: "/app/src"
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "1Gi"
-            cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: http
-          initialDelaySeconds: 60
-          periodSeconds: 30
-          timeoutSeconds: 10
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: http
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
-        volumeMounts:
-        - name: logs
-          mountPath: /app/logs
-        - name: artifacts
-          mountPath: /app/artifacts
-      volumes:
-      - name: logs
-        emptyDir: {}
-      - name: artifacts
-        persistentVolumeClaim:
-          claimName: ml-pipeline-artifacts
+        - containerPort: 5000

@@ -1,80 +1,62 @@
-# Multi-stage build for ML Pipeline Application
-FROM python:3.11-slim as base
+FROM python:3.11-slim
+
+# Set metadata
+LABEL maintainer="MLOps Team"
+LABEL description="MLOps Pipeline Application"
+LABEL version="1.0"
+
+# Set working directory
+WORKDIR /app
 
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONPATH="/app/src" \
-    PIP_NO_CACHE_DIR=1 \
-    PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PYTHONPATH=/app
+ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
-# Create non-root user
-RUN useradd --create-home --shell /bin/bash mluser
+# Create non-root user for security
+RUN groupadd -r mlops && useradd -r -g mlops mlops
 
-# Set working directory
-WORKDIR /app
-
-# Copy requirements first (for better caching)
-COPY requirements.txt pyproject.toml ./
+# Copy requirements first for better Docker layer caching
+COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY src/ ./src/
-COPY config/ ./config/
-COPY templates/ ./templates/
-COPY static/ ./static/
-COPY app.py main.py ./
+COPY . .
 
-# Create necessary directories
-RUN mkdir -p logs artifacts/model_trainer artifacts/data_transformation
-
-# Change ownership to mluser
-RUN chown -R mluser:mluser /app
+# Create necessary directories with proper permissions
+RUN mkdir -p artifacts/model_trainer \
+    artifacts/data_transformation \
+    artifacts/data_validation \
+    artifacts/feature_engineering \
+    artifacts/model_evaluation \
+    artifacts/data_ingestion \
+    logs \
+    static \
+    templates && \
+    chown -R mlops:mlops /app
 
 # Switch to non-root user
-USER mluser
+USER mlops
+
+# Expose port
+EXPOSE 5000
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:5000/health || exit 1
 
-# Expose ports
-EXPOSE 5000 8000
-
-# Default command
+# Run the application
 CMD ["python", "app.py"]
-
-# Production stage
-FROM base as production
-
-# Copy any additional production configs
-COPY start_observability.sh ./
-RUN chmod +x start_observability.sh
-
-# Production-specific optimizations
-ENV FLASK_ENV=production \
-    FLASK_DEBUG=0
-
-# Observability stage (includes monitoring tools)
-FROM base as observability
-
-# Install additional monitoring dependencies
-USER root
-RUN pip install prometheus-client jaeger-client opentelemetry-api
-
-# Copy observability configs
-COPY observability/ ./observability/
-
-USER mluser
-
-# Command for observability-enabled container
-CMD ["sh", "-c", "python app.py & sleep 10 && python -c 'from src.mlpipeline.observability.metrics import pipeline_metrics; pipeline_metrics.start_metrics_server(8000)' && wait"]
