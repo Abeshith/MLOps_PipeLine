@@ -1209,3 +1209,357 @@ x==========x
 2025-09-10 12:23:18,220 - mlPipelineLogger - INFO - <module>:75 - >>>>>> stage Model Evaluation stage completed <<<<<<
 
 x==========x
+2025-10-03 05:02:44,429 - httpx - INFO - _send_single_request:1025 - HTTP Request: GET https://dagshub.com/api/v1/repos/abheshith7/MLOPS_PipeLine "HTTP/1.1 200 OK"
+2025-10-03 05:02:44,433 - dagshub - INFO - log_message:107 - Initialized MLflow to track repo "abheshith7/MLOPS_PipeLine"
+2025-10-03 05:02:44,434 - dagshub - INFO - log_message:107 - Repository abheshith7/MLOPS_PipeLine initialized!
+2025-10-03 05:02:44,435 - mlPipelineLogger - INFO - <module>:22 - >>>>>> stage Data Ingestion stage started <<<<<<
+2025-10-03 05:02:44,452 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:02:44,458 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:02:44,462 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:02:44,463 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:02:44,463 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion
+2025-10-03 05:02:44,466 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/raw_data
+2025-10-03 05:02:44,466 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/train_data
+2025-10-03 05:02:44,466 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/test_data
+2025-10-03 05:02:44,468 - mlPipelineLogger - INFO - download_file:24 - Downloading data from Kaggle competition: playground-series-s5e8
+2025-10-03 05:03:09,218 - mlPipelineLogger - INFO - download_file:48 - Successfully downloaded competition data
+2025-10-03 05:03:09,260 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function download_file executed in 24.79 seconds
+2025-10-03 05:03:09,269 - jaeger_tracing - INFO - report_span:80 - Reporting span 1df438b05493bbb3:aee125dec1e68593:0:1 ml-pipeline.download_file
+2025-10-03 05:03:11,917 - mlPipelineLogger - INFO - extract_data:61 - Full train data loaded - Shape: (750000, 18)
+2025-10-03 05:03:12,497 - mlPipelineLogger - INFO - extract_data:83 - Train data sampled and saved - Shape: (10000, 18)
+2025-10-03 05:03:12,497 - mlPipelineLogger - INFO - extract_data:84 - Train data size: ~ 855 KB
+2025-10-03 05:03:13,109 - mlPipelineLogger - INFO - extract_data:89 - Full test data loaded - Shape: (250000, 17)
+2025-10-03 05:03:13,149 - mlPipelineLogger - INFO - extract_data:101 - Test data sampled and saved - Shape: (2500, 17)
+2025-10-03 05:03:13,149 - mlPipelineLogger - INFO - extract_data:102 - Test data size: ~ 209 KB
+2025-10-03 05:03:13,237 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function extract_data executed in 3.95 seconds
+2025-10-03 05:03:13,239 - jaeger_tracing - INFO - report_span:80 - Reporting span 3d8a490d0fde9e5e:1852ca3ff961527:0:1 ml-pipeline.extract_data
+2025-10-03 05:03:13,245 - mlPipelineLogger - INFO - initiate_data_ingestion:140 - Data ingestion artifact: DataIngestionArtifact(root_dir='artifacts/data_ingestion', raw_data_dir='artifacts/data_ingestion/raw_data', train_data_dir='artifacts/data_ingestion/train_data', test_data_dir='artifacts/data_ingestion/test_data', train_file_path='artifacts/data_ingestion/train_data/train.csv', test_file_path='artifacts/data_ingestion/test_data/test.csv', message='Data ingestion completed successfully.')
+2025-10-03 05:03:13,247 - mlPipelineLogger - INFO - main:18 - Data ingestion completed with message: Data ingestion completed successfully.
+2025-10-03 05:03:13,249 - mlPipelineLogger - INFO - <module>:25 - >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x
+2025-10-03 05:03:13,249 - mlPipelineLogger - INFO - <module>:32 - >>>>>> stage Data Validation stage started <<<<<<
+2025-10-03 05:03:13,266 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:03:13,272 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:03:13,278 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:03:13,279 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:03:13,281 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_validation
+2025-10-03 05:03:13,693 - mlPipelineLogger - INFO - validate_all_columns:161 - Data validation successful
+2025-10-03 05:03:13,694 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function validate_all_columns executed in 0.41 seconds
+2025-10-03 05:03:13,694 - jaeger_tracing - INFO - report_span:80 - Reporting span 4d38cf1cc14d407f:198bab3cd9d48cf7:0:1 ml-pipeline.validate_all_columns
+2025-10-03 05:03:13,696 - mlPipelineLogger - INFO - <module>:35 - >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x
+2025-10-03 05:03:13,696 - mlPipelineLogger - INFO - <module>:42 - >>>>>> stage Feature Engineering stage started <<<<<<
+2025-10-03 05:03:13,701 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:03:13,704 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:03:13,706 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:03:13,706 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:03:13,706 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering
+2025-10-03 05:03:13,707 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/engineered_features
+2025-10-03 05:03:13,707 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/feature_importance
+2025-10-03 05:03:13,707 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/correlation_analysis
+2025-10-03 05:03:13,708 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/feature_selection_results
+2025-10-03 05:03:13,712 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/feature_config.yaml loaded successfully
+2025-10-03 05:03:13,736 - mlPipelineLogger - INFO - engineer_features:122 - Applying transformations...
+2025-10-03 05:03:13,752 - mlPipelineLogger - INFO - engineer_features:127 - Transforming features...
+2025-10-03 05:03:13,869 - mlPipelineLogger - INFO - engineer_features:141 - Performing correlation analysis...
+2025-10-03 05:03:15,410 - mlPipelineLogger - INFO - engineer_features:146 - Selecting features...
+2025-10-03 05:03:18,102 - mlPipelineLogger - INFO - engineer_features:153 - Saving feature importance analysis...
+2025-10-03 05:03:18,804 - mlPipelineLogger - INFO - engineer_features:178 - Feature engineering completed successfully
+2025-10-03 05:03:18,805 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function engineer_features executed in 5.09 seconds
+2025-10-03 05:03:18,806 - jaeger_tracing - INFO - report_span:80 - Reporting span a403e2207c082fde:49abd23ca6836392:0:1 ml-pipeline.engineer_features
+2025-10-03 05:03:18,807 - mlPipelineLogger - INFO - main:22 - Training data shape after feature engineering: (10000, 16)
+2025-10-03 05:03:18,807 - mlPipelineLogger - INFO - main:23 - Test data shape after feature engineering: (2500, 15)
+2025-10-03 05:03:18,807 - mlPipelineLogger - INFO - <module>:45 - >>>>>> stage Feature Engineering stage completed <<<<<<
+
+x==========x
+2025-10-03 05:03:18,808 - mlPipelineLogger - INFO - <module>:52 - >>>>>> stage Data Transformation stage started <<<<<<
+2025-10-03 05:03:18,813 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:03:18,817 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:03:18,819 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:03:18,820 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:03:18,820 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_transformation
+2025-10-03 05:03:18,873 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function get_data_transformer_object executed in 0.00 seconds
+2025-10-03 05:03:18,873 - jaeger_tracing - INFO - report_span:80 - Reporting span 8ec47c4bac666bd5:d341b2377366f028:0:1 ml-pipeline.get_data_transformer_object
+2025-10-03 05:03:18,892 - mlPipelineLogger - WARNING - initiate_data_transformation:64 - Dataset has only 10000 samples, but 12500 needed. Using all available data.
+2025-10-03 05:03:19,170 - mlPipelineLogger - INFO - save_bin:61 - binary file saved at: artifacts/data_transformation/preprocessor.pkl
+2025-10-03 05:03:19,171 - mlPipelineLogger - INFO - initiate_data_transformation:100 - Data transformation completed
+2025-10-03 05:03:19,171 - mlPipelineLogger - INFO - initiate_data_transformation:101 - Training data shape: (8000, 16)
+2025-10-03 05:03:19,171 - mlPipelineLogger - INFO - initiate_data_transformation:102 - Test data shape: (2000, 16)
+2025-10-03 05:03:19,171 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function initiate_data_transformation executed in 0.35 seconds
+2025-10-03 05:03:19,172 - jaeger_tracing - INFO - report_span:80 - Reporting span e3d5b1b8bd39ed46:f314b3c0f1686d5:0:1 ml-pipeline.initiate_data_transformation
+2025-10-03 05:03:19,172 - mlPipelineLogger - INFO - <module>:55 - >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x
+2025-10-03 05:03:19,172 - mlPipelineLogger - INFO - <module>:62 - >>>>>> stage Model Trainer stage started <<<<<<
+2025-10-03 05:03:19,177 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:03:19,179 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:03:19,181 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:03:19,181 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:03:19,181 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/model_trainer
+2025-10-03 05:03:19,217 - mlPipelineLogger - INFO - train:45 - Training Random Forest Classifier...
+2025-10-03 05:03:27,019 - mlPipelineLogger - INFO - train:67 - Random Forest - Test Accuracy: 0.9125
+2025-10-03 05:03:27,757 - mlPipelineLogger - INFO - train:70 - Training Logistic Regression...
+2025-10-03 05:03:40,204 - mlPipelineLogger - INFO - train:92 - Logistic Regression - Test Accuracy: 0.9100
+2025-10-03 05:03:41,719 - mlPipelineLogger - INFO - train:95 - Training XGBoost Classifier...
+2025-10-03 05:03:55,759 - mlPipelineLogger - INFO - train:117 - XGBoost - Test Accuracy: 0.9140
+2025-10-03 05:03:57,790 - mlPipelineLogger - INFO - train:124 - Best model: XGBoost with accuracy: 0.9140
+2025-10-03 05:03:57,796 - mlPipelineLogger - INFO - save_bin:61 - binary file saved at: artifacts/model_trainer/model.pkl
+2025-10-03 05:03:57,797 - mlPipelineLogger - INFO - train:135 - Best model (XGBoost) saved successfully with accuracy: 0.9140
+2025-10-03 05:04:04,706 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function train executed in 45.52 seconds
+2025-10-03 05:04:04,708 - jaeger_tracing - INFO - report_span:80 - Reporting span 52e3370861558504:bc866abff32d7073:0:1 ml-pipeline.train
+2025-10-03 05:04:04,708 - mlPipelineLogger - INFO - <module>:65 - >>>>>> stage Model Trainer stage completed <<<<<<
+
+x==========x
+2025-10-03 05:04:04,710 - mlPipelineLogger - INFO - <module>:72 - >>>>>> stage Model Evaluation stage started <<<<<<
+2025-10-03 05:04:04,716 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:04:04,719 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:04:04,720 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:04:04,720 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:04:04,721 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/model_evaluation
+2025-10-03 05:04:04,740 - mlPipelineLogger - INFO - load_bin:55 - binary file loaded from: artifacts/model_trainer/model.pkl
+2025-10-03 05:04:04,776 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function eval_metrics executed in 0.02 seconds
+2025-10-03 05:04:04,776 - jaeger_tracing - INFO - report_span:80 - Reporting span 88e75f210a020b79:52bec996a7325e9e:0:1 ml-pipeline.eval_metrics
+2025-10-03 05:04:22,767 - mlPipelineLogger - INFO - log_into_mlflow:70 - Model evaluation completed. Scores: {'accuracy': 0.914, 'precision': 0.906157495107632, 'recall': 0.914, 'f1': 0.9079697372939561, 'auc': 0.93598541230754}
+2025-10-03 05:04:22,768 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function log_into_mlflow executed in 18.05 seconds
+2025-10-03 05:04:22,768 - jaeger_tracing - INFO - report_span:80 - Reporting span c8fbccb410719b36:1c7807daec5c65ee:0:1 ml-pipeline.log_into_mlflow
+2025-10-03 05:04:22,769 - mlPipelineLogger - INFO - <module>:75 - >>>>>> stage Model Evaluation stage completed <<<<<<
+
+x==========x
+2025-10-03 05:06:17,150 - httpx - INFO - _send_single_request:1025 - HTTP Request: GET https://dagshub.com/api/v1/repos/abheshith7/MLOPS_PipeLine "HTTP/1.1 200 OK"
+2025-10-03 05:06:17,169 - dagshub - INFO - log_message:107 - Initialized MLflow to track repo "abheshith7/MLOPS_PipeLine"
+2025-10-03 05:06:17,170 - dagshub - INFO - log_message:107 - Repository abheshith7/MLOPS_PipeLine initialized!
+2025-10-03 05:06:17,174 - mlPipelineLogger - INFO - <module>:22 - >>>>>> stage Data Ingestion stage started <<<<<<
+2025-10-03 05:06:17,203 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:06:17,208 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:06:17,214 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:06:17,215 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:06:17,216 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion
+2025-10-03 05:06:17,217 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/raw_data
+2025-10-03 05:06:17,217 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/train_data
+2025-10-03 05:06:17,218 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/test_data
+2025-10-03 05:06:17,220 - mlPipelineLogger - INFO - download_file:24 - Downloading data from Kaggle competition: playground-series-s5e8
+2025-10-03 05:06:37,062 - mlPipelineLogger - INFO - download_file:48 - Successfully downloaded competition data
+2025-10-03 05:06:37,220 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function download_file executed in 20.00 seconds
+2025-10-03 05:06:37,224 - jaeger_tracing - INFO - report_span:80 - Reporting span 4ba862d0ce03a930:3c83f8359b317757:0:1 ml-pipeline.download_file
+2025-10-03 05:06:39,733 - mlPipelineLogger - INFO - extract_data:61 - Full train data loaded - Shape: (750000, 18)
+2025-10-03 05:06:40,313 - mlPipelineLogger - INFO - extract_data:83 - Train data sampled and saved - Shape: (10000, 18)
+2025-10-03 05:06:40,314 - mlPipelineLogger - INFO - extract_data:84 - Train data size: ~ 855 KB
+2025-10-03 05:06:41,066 - mlPipelineLogger - INFO - extract_data:89 - Full test data loaded - Shape: (250000, 17)
+2025-10-03 05:06:41,089 - mlPipelineLogger - INFO - extract_data:101 - Test data sampled and saved - Shape: (2500, 17)
+2025-10-03 05:06:41,089 - mlPipelineLogger - INFO - extract_data:102 - Test data size: ~ 209 KB
+2025-10-03 05:06:41,129 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function extract_data executed in 3.90 seconds
+2025-10-03 05:06:41,131 - jaeger_tracing - INFO - report_span:80 - Reporting span 94fe8b71ae4f68af:71228d15e265be1:0:1 ml-pipeline.extract_data
+2025-10-03 05:06:41,136 - mlPipelineLogger - INFO - initiate_data_ingestion:140 - Data ingestion artifact: DataIngestionArtifact(root_dir='artifacts/data_ingestion', raw_data_dir='artifacts/data_ingestion/raw_data', train_data_dir='artifacts/data_ingestion/train_data', test_data_dir='artifacts/data_ingestion/test_data', train_file_path='artifacts/data_ingestion/train_data/train.csv', test_file_path='artifacts/data_ingestion/test_data/test.csv', message='Data ingestion completed successfully.')
+2025-10-03 05:06:41,137 - mlPipelineLogger - INFO - main:18 - Data ingestion completed with message: Data ingestion completed successfully.
+2025-10-03 05:06:41,137 - mlPipelineLogger - INFO - <module>:25 - >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x
+2025-10-03 05:06:41,137 - mlPipelineLogger - INFO - <module>:32 - >>>>>> stage Data Validation stage started <<<<<<
+2025-10-03 05:06:41,145 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:06:41,149 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:06:41,153 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:06:41,154 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:06:41,155 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_validation
+2025-10-03 05:06:41,475 - mlPipelineLogger - INFO - validate_all_columns:161 - Data validation successful
+2025-10-03 05:06:41,476 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function validate_all_columns executed in 0.32 seconds
+2025-10-03 05:06:41,476 - jaeger_tracing - INFO - report_span:80 - Reporting span 23d7b587f92bf02e:5aa3bf3471dc825f:0:1 ml-pipeline.validate_all_columns
+2025-10-03 05:06:41,477 - mlPipelineLogger - INFO - <module>:35 - >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x
+2025-10-03 05:06:41,477 - mlPipelineLogger - INFO - <module>:42 - >>>>>> stage Feature Engineering stage started <<<<<<
+2025-10-03 05:06:41,483 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:06:41,486 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:06:41,487 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:06:41,488 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:06:41,489 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering
+2025-10-03 05:06:41,490 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/engineered_features
+2025-10-03 05:06:41,490 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/feature_importance
+2025-10-03 05:06:41,490 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/correlation_analysis
+2025-10-03 05:06:41,490 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/feature_selection_results
+2025-10-03 05:06:41,493 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/feature_config.yaml loaded successfully
+2025-10-03 05:06:41,518 - mlPipelineLogger - INFO - engineer_features:122 - Applying transformations...
+2025-10-03 05:06:41,534 - mlPipelineLogger - INFO - engineer_features:127 - Transforming features...
+2025-10-03 05:06:41,630 - mlPipelineLogger - INFO - engineer_features:141 - Performing correlation analysis...
+2025-10-03 05:06:42,070 - mlPipelineLogger - INFO - engineer_features:146 - Selecting features...
+2025-10-03 05:06:44,637 - mlPipelineLogger - INFO - engineer_features:153 - Saving feature importance analysis...
+2025-10-03 05:06:45,526 - mlPipelineLogger - INFO - engineer_features:178 - Feature engineering completed successfully
+2025-10-03 05:06:45,528 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function engineer_features executed in 4.03 seconds
+2025-10-03 05:06:45,528 - jaeger_tracing - INFO - report_span:80 - Reporting span 5fe172bc2196b555:15cd4e96ef7756d0:0:1 ml-pipeline.engineer_features
+2025-10-03 05:06:45,529 - mlPipelineLogger - INFO - main:22 - Training data shape after feature engineering: (10000, 16)
+2025-10-03 05:06:45,530 - mlPipelineLogger - INFO - main:23 - Test data shape after feature engineering: (2500, 15)
+2025-10-03 05:06:45,530 - mlPipelineLogger - INFO - <module>:45 - >>>>>> stage Feature Engineering stage completed <<<<<<
+
+x==========x
+2025-10-03 05:06:45,531 - mlPipelineLogger - INFO - <module>:52 - >>>>>> stage Data Transformation stage started <<<<<<
+2025-10-03 05:06:45,537 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:06:45,540 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:06:45,542 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:06:45,542 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:06:45,543 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_transformation
+2025-10-03 05:06:45,562 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function get_data_transformer_object executed in 0.00 seconds
+2025-10-03 05:06:45,562 - jaeger_tracing - INFO - report_span:80 - Reporting span d78fa1ebc17cc6cc:67aa685d53f5c6ac:0:1 ml-pipeline.get_data_transformer_object
+2025-10-03 05:06:45,571 - mlPipelineLogger - WARNING - initiate_data_transformation:64 - Dataset has only 10000 samples, but 12500 needed. Using all available data.
+2025-10-03 05:06:45,895 - mlPipelineLogger - INFO - save_bin:61 - binary file saved at: artifacts/data_transformation/preprocessor.pkl
+2025-10-03 05:06:45,896 - mlPipelineLogger - INFO - initiate_data_transformation:100 - Data transformation completed
+2025-10-03 05:06:45,896 - mlPipelineLogger - INFO - initiate_data_transformation:101 - Training data shape: (8000, 16)
+2025-10-03 05:06:45,896 - mlPipelineLogger - INFO - initiate_data_transformation:102 - Test data shape: (2000, 16)
+2025-10-03 05:06:45,897 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function initiate_data_transformation executed in 0.35 seconds
+2025-10-03 05:06:45,897 - jaeger_tracing - INFO - report_span:80 - Reporting span a6129fb557c036d5:f6bc1568bf52f305:0:1 ml-pipeline.initiate_data_transformation
+2025-10-03 05:06:45,899 - mlPipelineLogger - INFO - <module>:55 - >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x
+2025-10-03 05:06:45,899 - mlPipelineLogger - INFO - <module>:62 - >>>>>> stage Model Trainer stage started <<<<<<
+2025-10-03 05:06:45,905 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:06:45,908 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:06:45,910 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:06:45,911 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:06:45,911 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/model_trainer
+2025-10-03 05:06:45,952 - mlPipelineLogger - INFO - train:45 - Training Random Forest Classifier...
+2025-10-03 05:06:53,953 - mlPipelineLogger - INFO - train:67 - Random Forest - Test Accuracy: 0.9175
+2025-10-03 05:06:54,721 - mlPipelineLogger - INFO - train:70 - Training Logistic Regression...
+2025-10-03 05:07:06,386 - mlPipelineLogger - INFO - train:92 - Logistic Regression - Test Accuracy: 0.9110
+2025-10-03 05:07:08,620 - mlPipelineLogger - INFO - train:95 - Training XGBoost Classifier...
+2025-10-03 05:07:22,404 - mlPipelineLogger - INFO - train:117 - XGBoost - Test Accuracy: 0.9170
+2025-10-03 05:07:24,345 - mlPipelineLogger - INFO - train:124 - Best model: RandomForest with accuracy: 0.9175
+2025-10-03 05:07:24,450 - mlPipelineLogger - INFO - save_bin:61 - binary file saved at: artifacts/model_trainer/model.pkl
+2025-10-03 05:07:24,471 - mlPipelineLogger - INFO - train:135 - Best model (RandomForest) saved successfully with accuracy: 0.9175
+2025-10-03 05:07:31,517 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function train executed in 45.61 seconds
+2025-10-03 05:07:31,850 - jaeger_tracing - INFO - report_span:80 - Reporting span f5cf0190de6bcc56:7e3f4c1a3587b417:0:1 ml-pipeline.train
+2025-10-03 05:07:31,896 - mlPipelineLogger - INFO - <module>:65 - >>>>>> stage Model Trainer stage completed <<<<<<
+
+x==========x
+2025-10-03 05:07:31,897 - mlPipelineLogger - INFO - <module>:72 - >>>>>> stage Model Evaluation stage started <<<<<<
+2025-10-03 05:07:32,046 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-03 05:07:32,082 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-03 05:07:32,121 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-03 05:07:32,122 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-03 05:07:32,188 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/model_evaluation
+2025-10-03 05:07:33,189 - mlPipelineLogger - INFO - load_bin:55 - binary file loaded from: artifacts/model_trainer/model.pkl
+2025-10-03 05:07:33,337 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function eval_metrics executed in 0.05 seconds
+2025-10-03 05:07:33,337 - jaeger_tracing - INFO - report_span:80 - Reporting span 97da68f59a3fcc89:2e484b72737fd731:0:1 ml-pipeline.eval_metrics
+2025-10-03 05:07:49,374 - mlPipelineLogger - INFO - log_into_mlflow:70 - Model evaluation completed. Scores: {'accuracy': 0.9175, 'precision': 0.9100802440079385, 'recall': 0.9175, 'f1': 0.9114018438928306, 'auc': 0.9420184044593425}
+2025-10-03 05:07:49,380 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function log_into_mlflow executed in 17.15 seconds
+2025-10-03 05:07:49,381 - jaeger_tracing - INFO - report_span:80 - Reporting span a8454c8ea3989fb3:6c5538f117a5fe6a:0:1 ml-pipeline.log_into_mlflow
+2025-10-03 05:07:49,382 - mlPipelineLogger - INFO - <module>:75 - >>>>>> stage Model Evaluation stage completed <<<<<<
+
+x==========x
+2025-10-17 06:07:56,586 - httpx - INFO - _send_single_request:1025 - HTTP Request: GET https://dagshub.com/api/v1/repos/abheshith7/MLOPS_PipeLine "HTTP/1.1 200 OK"
+2025-10-17 06:07:56,593 - dagshub - INFO - log_message:107 - Initialized MLflow to track repo "abheshith7/MLOPS_PipeLine"
+2025-10-17 06:07:56,595 - dagshub - INFO - log_message:107 - Repository abheshith7/MLOPS_PipeLine initialized!
+2025-10-17 06:07:56,602 - mlPipelineLogger - INFO - <module>:22 - >>>>>> stage Data Ingestion stage started <<<<<<
+2025-10-17 06:07:56,644 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-17 06:07:56,657 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-17 06:07:56,708 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-17 06:07:56,717 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-17 06:07:56,718 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion
+2025-10-17 06:07:56,725 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/raw_data
+2025-10-17 06:07:56,726 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/train_data
+2025-10-17 06:07:56,727 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_ingestion/test_data
+2025-10-17 06:07:56,735 - mlPipelineLogger - INFO - download_file:24 - Downloading data from Kaggle competition: playground-series-s5e8
+2025-10-17 06:08:24,619 - mlPipelineLogger - INFO - download_file:48 - Successfully downloaded competition data
+2025-10-17 06:08:24,670 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function download_file executed in 27.94 seconds
+2025-10-17 06:08:24,681 - jaeger_tracing - INFO - report_span:80 - Reporting span 258ac842dc1d979d:595c581ce109b6f:0:1 ml-pipeline.download_file
+2025-10-17 06:08:31,891 - mlPipelineLogger - INFO - extract_data:61 - Full train data loaded - Shape: (750000, 18)
+2025-10-17 06:08:34,929 - mlPipelineLogger - INFO - extract_data:83 - Train data sampled and saved - Shape: (10000, 18)
+2025-10-17 06:08:34,929 - mlPipelineLogger - INFO - extract_data:84 - Train data size: ~ 855 KB
+2025-10-17 06:08:37,177 - mlPipelineLogger - INFO - extract_data:89 - Full test data loaded - Shape: (250000, 17)
+2025-10-17 06:08:37,265 - mlPipelineLogger - INFO - extract_data:101 - Test data sampled and saved - Shape: (2500, 17)
+2025-10-17 06:08:37,266 - mlPipelineLogger - INFO - extract_data:102 - Test data size: ~ 209 KB
+2025-10-17 06:08:37,391 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function extract_data executed in 12.69 seconds
+2025-10-17 06:08:37,394 - jaeger_tracing - INFO - report_span:80 - Reporting span c114ce42bbdd0704:988e065070522d51:0:1 ml-pipeline.extract_data
+2025-10-17 06:08:37,400 - mlPipelineLogger - INFO - initiate_data_ingestion:140 - Data ingestion artifact: DataIngestionArtifact(root_dir='artifacts/data_ingestion', raw_data_dir='artifacts/data_ingestion/raw_data', train_data_dir='artifacts/data_ingestion/train_data', test_data_dir='artifacts/data_ingestion/test_data', train_file_path='artifacts/data_ingestion/train_data/train.csv', test_file_path='artifacts/data_ingestion/test_data/test.csv', message='Data ingestion completed successfully.')
+2025-10-17 06:08:37,403 - mlPipelineLogger - INFO - main:18 - Data ingestion completed with message: Data ingestion completed successfully.
+2025-10-17 06:08:37,404 - mlPipelineLogger - INFO - <module>:25 - >>>>>> stage Data Ingestion stage completed <<<<<<
+
+x==========x
+2025-10-17 06:08:37,405 - mlPipelineLogger - INFO - <module>:32 - >>>>>> stage Data Validation stage started <<<<<<
+2025-10-17 06:08:37,421 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-17 06:08:37,427 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-17 06:08:37,433 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-17 06:08:37,434 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-17 06:08:37,435 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_validation
+2025-10-17 06:08:38,060 - mlPipelineLogger - INFO - validate_all_columns:161 - Data validation successful
+2025-10-17 06:08:38,061 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function validate_all_columns executed in 0.62 seconds
+2025-10-17 06:08:38,067 - jaeger_tracing - INFO - report_span:80 - Reporting span 1cb996fb66fc6179:5192e52ce51018cb:0:1 ml-pipeline.validate_all_columns
+2025-10-17 06:08:38,074 - mlPipelineLogger - INFO - <module>:35 - >>>>>> stage Data Validation stage completed <<<<<<
+
+x==========x
+2025-10-17 06:08:38,074 - mlPipelineLogger - INFO - <module>:42 - >>>>>> stage Feature Engineering stage started <<<<<<
+2025-10-17 06:08:38,093 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-17 06:08:38,098 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-17 06:08:38,107 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-17 06:08:38,108 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-17 06:08:38,110 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering
+2025-10-17 06:08:38,112 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/engineered_features
+2025-10-17 06:08:38,112 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/feature_importance
+2025-10-17 06:08:38,113 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/correlation_analysis
+2025-10-17 06:08:38,113 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/feature_engineering/feature_selection_results
+2025-10-17 06:08:38,120 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/feature_config.yaml loaded successfully
+2025-10-17 06:08:38,181 - mlPipelineLogger - INFO - engineer_features:122 - Applying transformations...
+2025-10-17 06:08:38,205 - mlPipelineLogger - INFO - engineer_features:127 - Transforming features...
+2025-10-17 06:08:38,410 - mlPipelineLogger - INFO - engineer_features:141 - Performing correlation analysis...
+2025-10-17 06:08:44,744 - mlPipelineLogger - INFO - engineer_features:146 - Selecting features...
+2025-10-17 06:08:46,982 - mlPipelineLogger - INFO - engineer_features:153 - Saving feature importance analysis...
+2025-10-17 06:08:48,312 - mlPipelineLogger - INFO - engineer_features:178 - Feature engineering completed successfully
+2025-10-17 06:08:48,315 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function engineer_features executed in 10.19 seconds
+2025-10-17 06:08:48,315 - jaeger_tracing - INFO - report_span:80 - Reporting span 578cb14c6cda7865:fc537ad1b9d46694:0:1 ml-pipeline.engineer_features
+2025-10-17 06:08:48,317 - mlPipelineLogger - INFO - main:22 - Training data shape after feature engineering: (10000, 16)
+2025-10-17 06:08:48,317 - mlPipelineLogger - INFO - main:23 - Test data shape after feature engineering: (2500, 15)
+2025-10-17 06:08:48,318 - mlPipelineLogger - INFO - <module>:45 - >>>>>> stage Feature Engineering stage completed <<<<<<
+
+x==========x
+2025-10-17 06:08:48,318 - mlPipelineLogger - INFO - <module>:52 - >>>>>> stage Data Transformation stage started <<<<<<
+2025-10-17 06:08:48,330 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-17 06:08:48,342 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-17 06:08:48,346 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-17 06:08:48,347 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-17 06:08:48,347 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/data_transformation
+2025-10-17 06:08:48,402 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function get_data_transformer_object executed in 0.00 seconds
+2025-10-17 06:08:48,402 - jaeger_tracing - INFO - report_span:80 - Reporting span e84a21e7223453e1:ecc7b4ae3523193e:0:1 ml-pipeline.get_data_transformer_object
+2025-10-17 06:08:48,425 - mlPipelineLogger - WARNING - initiate_data_transformation:64 - Dataset has only 10000 samples, but 12500 needed. Using all available data.
+2025-10-17 06:08:49,266 - mlPipelineLogger - INFO - save_bin:61 - binary file saved at: artifacts/data_transformation/preprocessor.pkl
+2025-10-17 06:08:49,271 - mlPipelineLogger - INFO - initiate_data_transformation:100 - Data transformation completed
+2025-10-17 06:08:49,271 - mlPipelineLogger - INFO - initiate_data_transformation:101 - Training data shape: (8000, 16)
+2025-10-17 06:08:49,271 - mlPipelineLogger - INFO - initiate_data_transformation:102 - Test data shape: (2000, 16)
+2025-10-17 06:08:49,272 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function initiate_data_transformation executed in 0.92 seconds
+2025-10-17 06:08:49,272 - jaeger_tracing - INFO - report_span:80 - Reporting span 6f8b5854b44cc2b4:457336c3ed63fe90:0:1 ml-pipeline.initiate_data_transformation
+2025-10-17 06:08:49,273 - mlPipelineLogger - INFO - <module>:55 - >>>>>> stage Data Transformation stage completed <<<<<<
+
+x==========x
+2025-10-17 06:08:49,273 - mlPipelineLogger - INFO - <module>:62 - >>>>>> stage Model Trainer stage started <<<<<<
+2025-10-17 06:08:49,291 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-17 06:08:49,303 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-17 06:08:49,306 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-17 06:08:49,307 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-17 06:08:49,307 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/model_trainer
+2025-10-17 06:08:49,410 - mlPipelineLogger - INFO - train:56 - Training Random Forest Classifier...
+2025-10-17 06:08:57,395 - mlPipelineLogger - INFO - train:78 - Random Forest - Test Accuracy: 0.9190
+2025-10-17 06:08:58,119 - mlPipelineLogger - INFO - train:81 - Training Logistic Regression...
+2025-10-17 06:09:10,043 - mlPipelineLogger - INFO - train:103 - Logistic Regression - Test Accuracy: 0.9110
+2025-10-17 06:09:11,878 - mlPipelineLogger - INFO - train:106 - Training XGBoost Classifier...
+2025-10-17 06:10:20,294 - mlPipelineLogger - INFO - train:128 - XGBoost - Test Accuracy: 0.9155
+2025-10-17 06:10:20,903 - mlPipelineLogger - INFO - train:135 - Best model: RandomForest with accuracy: 0.9190
+2025-10-17 06:10:21,218 - mlPipelineLogger - INFO - save_bin:61 - binary file saved at: artifacts/model_trainer/model.pkl
+2025-10-17 06:10:21,282 - mlPipelineLogger - INFO - train:146 - Best model (RandomForest) saved successfully with accuracy: 0.9190
+2025-10-17 06:10:26,487 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function train executed in 97.18 seconds
+2025-10-17 06:10:26,505 - jaeger_tracing - INFO - report_span:80 - Reporting span 6b48b4be415e1653:2dce34cc63aa5cf3:0:1 ml-pipeline.train
+2025-10-17 06:10:26,528 - mlPipelineLogger - INFO - <module>:65 - >>>>>> stage Model Trainer stage completed <<<<<<
+
+x==========x
+2025-10-17 06:10:26,532 - mlPipelineLogger - INFO - <module>:72 - >>>>>> stage Model Evaluation stage started <<<<<<
+2025-10-17 06:10:26,563 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/config.yaml loaded successfully
+2025-10-17 06:10:26,569 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/params.yaml loaded successfully
+2025-10-17 06:10:26,572 - mlPipelineLogger - INFO - read_yaml:14 - yaml file: config/schema.yaml loaded successfully
+2025-10-17 06:10:26,573 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts
+2025-10-17 06:10:26,574 - mlPipelineLogger - INFO - create_directories:25 - created directory at: artifacts/model_evaluation
+2025-10-17 06:10:26,955 - mlPipelineLogger - INFO - load_bin:55 - binary file loaded from: artifacts/model_trainer/model.pkl
+2025-10-17 06:10:30,102 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function eval_metrics executed in 0.07 seconds
+2025-10-17 06:10:30,103 - jaeger_tracing - INFO - report_span:80 - Reporting span b210f0c5de9605b4:7306a9fbc601f9c2:0:1 ml-pipeline.eval_metrics
+2025-10-17 06:10:45,876 - mlPipelineLogger - INFO - log_into_mlflow:70 - Model evaluation completed. Scores: {'accuracy': 0.919, 'precision': 0.9118045875578321, 'recall': 0.919, 'f1': 0.9129090658180992, 'auc': 0.9433665393624725}
+2025-10-17 06:10:45,893 - mlpipeline.observability.tracing - INFO - wrapper:72 - Function log_into_mlflow executed in 19.31 seconds
+2025-10-17 06:10:45,898 - jaeger_tracing - INFO - report_span:80 - Reporting span a87ad10f43b825db:7ad8373f8f72c2a1:0:1 ml-pipeline.log_into_mlflow
+2025-10-17 06:10:45,905 - mlPipelineLogger - INFO - <module>:75 - >>>>>> stage Model Evaluation stage completed <<<<<<
+
+x==========x

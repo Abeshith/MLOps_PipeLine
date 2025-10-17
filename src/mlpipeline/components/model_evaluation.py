@@ -7,7 +7,13 @@ from mlpipeline.entity.config_entity import ModelEvaluationConfig
 from mlpipeline import logger
 from mlpipeline.observability.tracing import trace_function
 import dagshub
-dagshub.init(repo_owner='abheshith7', repo_name='MLOPS_PipeLine', mlflow=True)
+try:
+    dagshub.init(repo_owner='abheshith7', repo_name='MLOPS_PipeLine', mlflow=True)
+except RuntimeError as e:
+    if "429" in str(e):
+        print("DagHub rate limit reached, continuing without DagHub integration")
+    else:
+        raise
 
 class ModelEvaluation:
     def __init__(self, config: ModelEvaluationConfig):

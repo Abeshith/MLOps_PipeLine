@@ -12,7 +12,18 @@ from mlpipeline.entity.config_entity import ModelTrainerConfig
 from mlpipeline.observability.tracing import trace_function
 from mlpipeline.observability.metrics import pipeline_metrics
 import dagshub
-dagshub.init(repo_owner='abheshith7', repo_name='MLOPS_PipeLine', mlflow=True)
+import time
+
+# Retry DagHub initialization with exponential backoff
+for attempt in range(3):
+    try:
+        dagshub.init(repo_owner='abheshith7', repo_name='MLOPS_PipeLine', mlflow=True)
+        break
+    except RuntimeError as e:
+        if "429" in str(e) and attempt < 2:
+            time.sleep(2 ** attempt)
+            continue
+        raise
 
 class ModelTrainer:
     def __init__(self, config: ModelTrainerConfig):

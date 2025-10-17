@@ -5,25 +5,11 @@ global:
 rule_files:
   - "alerts.yml"
 
-alerting:
-  alertmanagers:
-    - static_configs:
-        - targets:
-          - alertmanager:9093
-
 scrape_configs:
-  # ML Pipeline Application Metrics
-  - job_name: 'ml-pipeline-app'
-    static_configs:
-      - targets: ['host.docker.internal:8000']  # Metrics from your Flask app
-    metrics_path: /metrics
-    scrape_interval: 5s
-    scrape_timeout: 4s
-
   # Flask Application Metrics
   - job_name: 'flask-app'
     static_configs:
-      - targets: ['host.docker.internal:5000']
+      - targets: ['172.17.0.1:5000']
     metrics_path: /metrics
     scrape_interval: 10s
 
@@ -36,15 +22,3 @@ scrape_configs:
   - job_name: 'node-exporter'
     static_configs:
       - targets: ['node-exporter:9100']
-
-  # Custom ML Pipeline Metrics
-  - job_name: 'ml-pipeline-training'
-    static_configs:
-      - targets: ['host.docker.internal:8001']  # Training pipeline metrics
-    scrape_interval: 30s
-
-  # Model Performance Metrics
-  - job_name: 'model-performance'
-    static_configs:
-      - targets: ['host.docker.internal:8002']  # Model evaluation metrics
-    scrape_interval: 60s

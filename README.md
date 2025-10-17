@@ -33,6 +33,30 @@
 
 ---
 
+## 📊 **Production-Ready Observability Stack**
+
+### **🔍 Complete Monitoring Integration**
+- **Single Production App**: `production_app.py` - Unified Flask application with built-in observability
+- **15+ ML Metrics**: Model performance, prediction analytics, system health monitoring
+- **Structured Logging**: Request tracing with Elasticsearch integration
+- **Real-time Dashboards**: Grafana visualizations for ML pipeline insights
+- **Health Monitoring**: Comprehensive endpoint monitoring and alerting
+
+### **📈 Observability Components**
+- 🎯 **Prometheus**: 15+ custom ML metrics (accuracy, confidence, error rates, latency)
+- 📊 **Grafana**: Production dashboards for model performance and business KPIs
+- 🔍 **Elasticsearch + Kibana**: Centralized logging with request tracing and error analysis
+- 🚨 **AlertManager**: Automated alerts for model degradation and system issues
+- 📋 **Health Endpoints**: `/health`, `/status`, `/metrics` for comprehensive monitoring
+
+### **🎯 Key Monitoring Metrics**
+```
+Model Performance: ml_model_accuracy, ml_model_precision, ml_model_recall
+Prediction Analytics: ml_predictions_by_class, ml_prediction_confidence
+System Health: ml_prediction_error_rate, http_request_duration_seconds
+Business KPIs: prediction distribution, confidence trends, response times
+```
+
 ## � About the Project & Approach
 
 This repository demonstrates a **comprehensive MLOps (Machine Learning Operations) pipeline** that showcases industry-standard practices for end-to-end machine learning workflow automation. The project implements a production-ready ML system with automated training, validation, deployment, and monitoring capabilities.
@@ -625,6 +649,52 @@ DOCKER_PASSWORD=your_docker_password
 
 ---
 
+## 🔧 **Complete Observability Implementation**
+
+### **🚀 Production Application**
+```bash
+# Start the unified production application
+python production_app.py
+
+# Available endpoints:
+http://localhost:5000/predict   # ML predictions with monitoring
+http://localhost:5000/health    # Health check endpoint  
+http://localhost:5000/status    # Detailed system status
+http://localhost:5000/metrics   # Prometheus metrics
+```
+
+### **📊 Monitoring Stack**
+```bash
+# Start complete observability stack
+cd observability
+docker compose up -d
+
+# Access monitoring tools:
+http://localhost:9090   # Prometheus (Metrics)
+http://localhost:3000   # Grafana (Dashboards) 
+http://localhost:9200   # Elasticsearch (Logs)
+http://localhost:5601   # Kibana (Log Analysis)
+```
+
+### **🎯 Key Features**
+- **15+ ML Metrics**: Model performance, prediction analytics, system health
+- **Structured Logging**: Request tracing with Elasticsearch integration
+- **Real-time Dashboards**: Grafana visualizations for ML insights
+- **Health Monitoring**: Comprehensive endpoint monitoring
+- **Error Tracking**: Detailed error logging and alerting
+
+### **📈 Available Metrics**
+```
+Model Performance: ml_model_accuracy, ml_model_precision, ml_model_recall
+Prediction Analytics: ml_predictions_by_class, ml_prediction_confidence  
+System Health: ml_prediction_error_rate, http_request_duration_seconds
+Business KPIs: prediction distribution, confidence trends, response times
+```
+
+**📋 For detailed setup instructions, see [Observability.md](Observability.md)**
+
+---
+
 ## � Project Structure
 
 ```
@@ -718,3 +788,30 @@ The pipeline achieves **92.15% model accuracy** while maintaining production sta
 **⭐ Star this repository if you found it helpful!**
 
 </div>
+
+---
+
+## 📋 **Complete Observability Documentation**
+
+**For detailed setup instructions and usage of the complete observability stack, see [Observability.md](Observability.md)**
+
+### **Production Features:**
+- **Single Application**: `production_app.py` with integrated monitoring
+- **15+ ML Metrics**: Real-time model performance tracking
+- **Structured Logging**: Request tracing with Elasticsearch
+- **Health Monitoring**: Comprehensive system status endpoints
+- **Monitoring Stack**: Prometheus + Grafana + Elasticsearch + Kibana
+
+### **Quick Start:**
+```bash
+# Start production app with observability
+python production_app.py
+
+# Start monitoring stack
+cd observability && docker compose up -d
+
+# Access monitoring tools
+# Prometheus: http://localhost:9090
+# Grafana: http://localhost:3000
+# Kibana: http://localhost:5601
+```

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlapp-deployment
+  labels:
+    app: mlapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlapp
+  template:
+    metadata:
+      labels:
+        app: mlapp
+    spec:
+      containers:
+      - name: mlapp
+        image: python:3.11-slim
+        command: ["/bin/sh"]
+        args: ["-c", "pip install flask prometheus-client && python -c \"
+from flask import Flask, jsonify;
+from prometheus_client import Counter, Gauge, generate_latest, CONTENT_TYPE_LATEST;
+import time;
+app = Flask(__name__);
+prediction_counter = Counter('ml_predictions_total', 'Total predictions');
+model_accuracy = Gauge('ml_model_accuracy', 'Model accuracy');
+model_accuracy.set(0.9215);
+@app.route('/');
+def home(): return jsonify({'status': 'ML App Running', 'accuracy': 0.9215});
+@app.route('/predict');
+def predict(): 
+  prediction_counter.inc(); 
+  return jsonify({'prediction': 1, 'confidence': 0.85});
+@app.route('/health');
+def health(): return jsonify({'status': 'healthy'});
+@app.route('/metrics');
+def metrics(): return generate_latest(), 200, {'Content-Type': CONTENT_TYPE_LATEST};
+app.run(host='0.0.0.0', port=5000)
+\""]
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mlapp-service
+spec:
+  selector:
+    app: mlapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: NodePort

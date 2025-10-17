@@ -9,7 +9,7 @@ from pathlib import Path
 # Handle both local execution and Airflow execution
 if 'airflow' in __file__:
     # Running from Airflow dags directory - adjust for WSL/Ubuntu
-    project_root = Path.home() / "MachineLearning Pipeline"
+    project_root = Path.home() / "MlOps PipeLine"
 else:
     # Running from project directory
     project_root = Path(__file__).parent

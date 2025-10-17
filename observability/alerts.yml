@@ -1,0 +1,29 @@
+groups:
+  - name: mlops-alerts
+    rules:
+      - alert: ModelAccuracyDrop
+        expr: ml_model_accuracy < 0.85
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Model accuracy dropped below threshold"
+          description: "Model accuracy is {{ $value }}, below 85% threshold"
+
+      - alert: HighPredictionErrorRate
+        expr: ml_prediction_error_rate > 0.05
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High prediction error rate detected"
+          description: "Error rate is {{ $value }}, above 5% threshold"
+
+      - alert: PipelineFailure
+        expr: up{job="mlops-pipeline"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "ML Pipeline is down"
+          description: "ML Pipeline has been down for more than 1 minute"
