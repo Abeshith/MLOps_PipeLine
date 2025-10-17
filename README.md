@@ -79,7 +79,7 @@ pip install -r requirements.txt
 ### Complete Pipeline
 ```bash
 # Run all stages
-python main.py
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python main.py
 
 # Or use DVC
 dvc repro
@@ -88,32 +88,32 @@ dvc repro
 ### Individual Stages
 ```bash
 # Stage 1: Data Ingestion
-python -m src.mlpipeline.pipeline.stage_01_data_ingestion
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python -m src.mlpipeline.pipeline.stage_01_data_ingestion
 
 # Stage 2: Data Validation  
-python -m src.mlpipeline.pipeline.stage_02_data_validation
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python -m src.mlpipeline.pipeline.stage_02_data_validation
 
 # Stage 3: Feature Engineering
-python -m src.mlpipeline.pipeline.stage_03_feature_engineering
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python -m src.mlpipeline.pipeline.stage_03_feature_engineering
 
 # Stage 4: Data Transformation
-python -m src.mlpipeline.pipeline.stage_04_data_transformation
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python -m src.mlpipeline.pipeline.stage_04_data_transformation
 
 # Stage 5: Model Training
-python -m src.mlpipeline.pipeline.stage_05_model_trainer
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python -m src.mlpipeline.pipeline.stage_05_model_trainer
 
 # Stage 6: Model Evaluation
-python -m src.mlpipeline.pipeline.stage_06_model_evaluation
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python -m src.mlpipeline.pipeline.stage_06_model_evaluation
 ```
 
 ### Flask Application
 ```bash
 # Start web interface
-python app.py
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python app.py
 # Access at: http://localhost:5000
 
 # Production app with monitoring
-python production_app.py
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python production_app.py
 # Metrics at: http://localhost:5000/metrics
 ```
 
@@ -136,6 +136,8 @@ docker compose up -d
 - **Model Performance**: accuracy, precision, recall, F1-score
 - **Prediction Analytics**: confidence scores, class distribution
 - **System Health**: error rates, response times, resource usage
+
+📖 **For detailed observability setup and configuration, see [Observability.md](./Observability.md)**
 
 ---
 
@@ -166,6 +168,9 @@ cp model_dag.py ~/airflow/dags/
 # Start Airflow
 airflow standalone
 
+# Test DAG file
+python ~/airflow/dags/model_dag.py
+
 # Access UI: http://localhost:8080
 # Trigger: ml_pipeline_dag
 ```
@@ -187,16 +192,18 @@ airflow standalone
 
 ```
 MLOps_PipeLine/
-├── src/mlpipeline/           # Core ML pipeline source code
-├── config/                   # Configuration files
-├── artifacts/               # Generated artifacts (DVC tracked)
-├── k8s/                     # Kubernetes manifests
-├── observability/           # Monitoring stack
-├── .github/workflows/       # CI/CD automation
-├── dvc.yaml                # DVC pipeline definition
-├── Dockerfile              # Container definition
-├── model_dag.py           # Airflow DAG definition
-└── app.py                 # Flask application
+├── src/mlpipeline/           # Core ML pipeline components and stages
+├── config/                   # Configuration files for pipeline settings
+├── artifacts/               # Generated model artifacts and data (DVC tracked)
+├── k8s/                     # Kubernetes deployment manifests
+├── observability/           # Complete monitoring stack with Prometheus, Grafana
+├── .github/workflows/       # CI/CD automation pipelines
+├── dvc.yaml                # DVC pipeline definition and stages
+├── Dockerfile              # Container definition for deployment
+├── model_dag.py           # Apache Airflow DAG for pipeline orchestration
+├── app.py                 # Basic Flask web application
+├── production_app.py      # Production Flask app with monitoring
+└── main.py                # Main pipeline execution script
 ```
 
 ---
@@ -215,5 +222,9 @@ MLOps_PipeLine/
 <div align="center">
 
 **⭐ Star this repository if you found it helpful!**
+
+## 👥 **Contributors**
+
+- **[Abeshith](https://github.com/Abeshith)** - Project Creator & Lead Developer
 
 </div>

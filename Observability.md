@@ -25,8 +25,7 @@ This guide provides step-by-step instructions for implementing and using the com
 
 ### **Step 1: Start the Production Application**
 ```bash
-cd /home/abhes/MlOps\ PipeLine
-python production_app.py
+cd "/home/abhes/MlOps PipeLine" && source venv/bin/activate && PYTHONPATH="/home/abhes/MlOps PipeLine/src" python production_app.py
 ```
 
 ### **Step 2: Start Observability Stack**
@@ -527,3 +526,7 @@ curl http://localhost:9090/api/v1/admin/tsdb/snapshot -XPOST
 ---
 
 This comprehensive observability stack provides complete visibility into your ML pipeline's performance, health, and business metrics. Use this guide to implement, maintain, and optimize your monitoring infrastructure.
+
+## 👥 **Contributors**
+
+- **[Abeshith](https://github.com/Abeshith)** - Project Creator & Lead Developer
