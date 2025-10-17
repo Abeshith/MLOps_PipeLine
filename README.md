@@ -222,9 +222,3 @@ MLOps_PipeLine/
 <div align="center">
 
 **⭐ Star this repository if you found it helpful!**
-
-## 👥 **Contributors**
-
-- **[Abeshith](https://github.com/Abeshith)** - Project Creator & Lead Developer
-
-</div>
