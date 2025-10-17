@@ -1,0 +1,20 @@
+{
+    "selected_features": [
+        "job_blue-collar",
+        "campaign",
+        "marital_married",
+        "loan_no",
+        "housing_no",
+        "contact_cellular",
+        "housing_yes",
+        "previous",
+        "contact_unknown",
+        "age",
+        "poutcome_unknown",
+        "poutcome_success",
+        "pdays",
+        "balance",
+        "duration"
+    ],
+    "n_features": 15
+}

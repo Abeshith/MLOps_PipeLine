@@ -1,6 +1,7 @@
 # Virtual environments
 mlops_env/
 venv/
+.venv/
 env/
 .env
 
@@ -32,3 +33,14 @@ logs/
 # Temporary files
 *.tmp
 *.temp
+
+# PowerShell scripts
+*.ps1
+
+# Lock files
+uv.lock
+
+# Empty files
+docker-compose.yml
+dev.ps1
+dvc-manager.ps1
